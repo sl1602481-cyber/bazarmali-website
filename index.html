@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>زارویکس — بازارهای مالی و کریپتو، شفاف و ساده</title>
+<meta name="description" content="پلتفرم تحلیل بازارهای مالی و کریپتو — تحلیل لحظه‌ای، رهگیری پورتفوی و هشدارهای ریسک در یک رابط آرام و فارسی.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --text:#f7f7f8;--muted:#8b8988;
+  --violet:#9312ff;--violet-a:#a020ff;--violet-b:#7a1cf8;
+  --green:#2fd27a;--red:#ff5c4d;--amber:#ffb547;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:var(--text);
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  line-height:1.7;
+}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font-family:inherit;cursor:pointer}
+svg{display:block}
+::selection{background:rgba(147,18,255,.45);color:#fff}
+.num{font-family:'Space Grotesk',sans-serif;direction:ltr;display:inline-block}
+
+/* ============ STICKY NAV ============ */
+.sticky-nav{position:fixed;top:0;left:0;right:0;z-index:90;height:64px;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;padding:0 22px;background:rgba(6,4,10,.82);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(147,18,255,.18);
+  transform:translateY(-100%);transition:transform .38s cubic-bezier(.22,.85,.2,1)}
+.sticky-nav.show{transform:none}
+.sn-links{display:flex;gap:4px}
+.sn-link{font-size:13px;color:var(--muted);padding:8px 13px;border-radius:999px;transition:.2s}
+.sn-link:hover{color:#fff;background:rgba(255,255,255,.06)}
+.sn-link.active{color:#fff;background:rgba(147,18,255,.18)}
+
+/* ============ BRAND / BUTTONS ============ */
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px}
+.logo-mark{width:26px;height:26px;filter:drop-shadow(0 0 10px rgba(147,18,255,.8))}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:14.5px;
+  padding:14px 30px;border-radius:999px;border:1px solid transparent;white-space:nowrap;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .3s,filter .25s,background .25s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:linear-gradient(180deg,var(--violet-a),var(--violet-b));color:#fff;
+  box-shadow:0 8px 28px rgba(147,18,255,.34),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-primary:hover{filter:brightness(1.14);transform:translateY(-1px);
+  box-shadow:0 10px 42px rgba(147,18,255,.62),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.09);border-color:rgba(147,18,255,.45);
+  box-shadow:0 0 26px rgba(147,18,255,.32);transform:translateY(-1px)}
+.btn-sm{padding:11px 24px;font-size:13.5px}
+.btn-block{width:100%}
+
+/* ============ HERO SCREEN ============ */
+.hero-screen{position:relative;min-height:100vh;overflow:hidden;background:#000}
+#stars{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.stage{position:absolute;left:50%;top:50%;width:1672px;height:941px;transform-origin:center;
+  transform:translate(-50%,-50%) scale(.6);z-index:2}
+.planet{position:absolute;left:0;top:0;width:1672px;height:717px;pointer-events:none}
+#rim{width:1672px;height:717px;display:block}
+
+.nav{position:absolute;left:0;right:0;top:0;height:96px;padding:0 54px;display:flex;align-items:center;
+  justify-content:space-between;opacity:0;transform:translateY(-14px)}
+body.ready .nav{animation:navIn .85s cubic-bezier(.22,.85,.2,1) .05s forwards}
+@keyframes navIn{to{opacity:1;transform:none}}
+.menu{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:3px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+  border-radius:999px;padding:5px;backdrop-filter:blur(8px)}
+.menu-item{font-size:13.5px;color:var(--muted);padding:8px 15px;border-radius:999px;transition:.2s;white-space:nowrap}
+.menu-item:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.menu-item.active{color:var(--text);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09)}
+
+.hero{position:absolute;left:0;right:0;top:186px;text-align:center;padding:0 40px}
+.headline{font-weight:700;font-size:78px;line-height:1.1;letter-spacing:-.02em}
+.hl-line{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.hl-inner{display:block;transform:translateY(112%)}
+body.ready .hl-line:nth-child(1) .hl-inner{animation:wipe 1s cubic-bezier(.16,.9,.2,1) .16s forwards}
+body.ready .hl-line:nth-child(2) .hl-inner{animation:wipe 1s cubic-bezier(.16,.9,.2,1) .28s forwards}
+@keyframes wipe{to{transform:translateY(0)}}
+.grad{background:linear-gradient(112deg,#d3a2ff,#a630ff 42%,#7a1cf8);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 32px rgba(147,18,255,.45))}
+.lede{margin:24px auto 0;max-width:830px;font-size:15.5px;line-height:1.8;color:var(--muted);
+  opacity:0;transform:translateY(16px)}
+body.ready .lede{animation:riseIn .9s cubic-bezier(.22,.85,.2,1) .48s forwards}
+.cta{margin-top:30px;display:flex;justify-content:center;gap:14px;opacity:0;transform:translateY(16px)}
+body.ready .cta{animation:riseIn .9s cubic-bezier(.22,.85,.2,1) .6s forwards}
+@keyframes riseIn{to{opacity:1;transform:none}}
+
+.panel-glow{position:absolute;left:50%;margin-left:-720px;top:498px;width:1440px;height:210px;pointer-events:none;
+  background:radial-gradient(ellipse 46% 62% at 50% 100%,rgba(147,18,255,.42),rgba(147,18,255,0) 70%);
+  mix-blend-mode:screen;opacity:0}
+body.ready .panel-glow{animation:fadeIn 1.4s ease .55s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ============ DASHBOARD PANEL ============ */
+.panel{position:absolute;left:50%;margin-left:-602px;top:651px;width:1204px;height:900px;
+  border-radius:14px;border:1px solid rgba(147,18,255,.26);
+  background:linear-gradient(180deg,rgba(20,13,32,.96),rgba(10,7,17,.985) 22%,#060409 60%);
+  box-shadow:0 -1px 0 rgba(180,92,255,.45),inset 0 0 0 1px rgba(255,255,255,.02),
+    0 -30px 90px -30px rgba(147,18,255,.55);
+  display:flex;overflow:hidden;opacity:0;transform:translateY(90px)}
+body.ready .panel{animation:panelUp 1.05s cubic-bezier(.22,.85,.2,1) .32s forwards}
+@keyframes panelUp{to{opacity:1;transform:none}}
+.panel-edge{position:absolute;left:0;right:0;top:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent,rgba(147,18,255,.55) 12%,#c47dff 50%,rgba(147,18,255,.55) 88%,transparent);
+  box-shadow:0 0 16px 2px rgba(147,18,255,.6),0 0 60px 12px rgba(147,18,255,.28)}
+
+.sidebar{width:196px;flex:none;padding:10px 9px 0;border-left:1px solid rgba(255,255,255,.06);
+  display:flex;flex-direction:column;gap:2px}
+.sb-head{height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 6px}
+.sb-brand{font-size:12.5px;font-weight:600}
+.gear{width:13px;height:13px;color:var(--muted);transition:.3s;cursor:pointer}
+.gear:hover{color:#c9a6ff;transform:rotate(45deg)}
+.sb-search{display:flex;align-items:center;gap:7px;height:26px;padding:0 8px;margin:2px 0 4px;
+  border-radius:8px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);
+  color:var(--muted);font-size:11px;transition:.2s;cursor:pointer}
+.sb-search:hover{border-color:rgba(147,18,255,.4);background:rgba(147,18,255,.09);color:#d9c4ff}
+.sb-item{display:flex;align-items:center;gap:7px;height:23px;padding:0 8px;border-radius:7px;
+  font-size:11px;color:#c8c5c4;border:1px solid transparent;transition:.18s;white-space:nowrap;cursor:pointer}
+.sb-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.sb-item.active{background:linear-gradient(90deg,rgba(147,18,255,.10),rgba(147,18,255,.24));
+  border-color:rgba(147,18,255,.4);color:#f1e6ff;box-shadow:inset 0 0 22px rgba(147,18,255,.18)}
+.sb-sep{height:1px;background:rgba(255,255,255,.06);margin:5px 3px}
+.sb-pro{margin-top:7px;padding:7px 9px 8px;border-radius:9px;border:1px solid rgba(147,18,255,.28);
+  background:linear-gradient(160deg,rgba(147,18,255,.16),rgba(147,18,255,.04));
+  display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+.pro-title{font-size:11px;font-weight:600}
+.pro-sub{font-size:9px;color:var(--muted);line-height:1.35}
+.pro-btn{margin-top:2px;font-size:9.5px;font-weight:600;padding:4px 11px;border-radius:999px;border:0;color:#fff;
+  background:linear-gradient(180deg,var(--violet-a),var(--violet-b));box-shadow:0 4px 14px rgba(147,18,255,.4);transition:.2s}
+.pro-btn:hover{filter:brightness(1.16)}
+
+.main{flex:1;padding:11px 13px 0;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;height:24px}
+.tb-left{display:flex;gap:7px;color:var(--muted)}
+.tb-ico{width:23px;height:23px;border-radius:7px;display:grid;place-items:center;cursor:pointer;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);transition:.2s}
+.tb-ico:hover{background:rgba(147,18,255,.16);border-color:rgba(147,18,255,.4);color:#d9c4ff}
+.user{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#d8d5d4;cursor:pointer;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);
+  border-radius:999px;padding:4px 10px 4px 4px;transition:.2s}
+.user:hover{border-color:rgba(147,18,255,.45);background:rgba(147,18,255,.1)}
+.av{width:18px;height:18px;border-radius:50%;background:linear-gradient(140deg,#a020ff,#5a0fb8);
+  display:grid;place-items:center;font-size:8px;font-weight:600;color:#fff}
+.addr{color:var(--muted);font-size:10px;font-family:'Space Grotesk',sans-serif;direction:ltr}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.stat{padding:7px 11px 8px;border-radius:10px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.06)}
+.stat-label{font-size:9px;color:var(--muted)}
+.stat-val{margin-top:3px;display:flex;align-items:baseline;gap:8px;
+  font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;direction:ltr}
+.delta{font-family:'Space Grotesk',sans-serif;font-size:9.5px;font-weight:600;padding:2px 6px;border-radius:5px;direction:ltr}
+.delta.up{color:var(--green);background:rgba(47,210,122,.13)}
+.delta.down{color:var(--red);background:rgba(255,92,77,.13)}
+
+.grid{display:grid;grid-template-columns:1fr 250px;gap:9px;margin-top:9px}
+.card{border-radius:10px;background:rgba(255,255,255,.026);border:1px solid rgba(255,255,255,.06);
+  padding:9px 11px 10px;min-width:0}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.card-title{font-size:10.5px;font-weight:600;color:#e6e3e2}
+.chip{font-size:9px;color:var(--muted);padding:3px 8px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);transition:.2s}
+.chip:hover{background:rgba(147,18,255,.2);color:#e9d8ff;border-color:rgba(147,18,255,.4)}
+
+.chart-wrap{position:relative;height:112px;border-radius:6px;
+  background:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/100% 28px,
+             linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px) 0 0/56px 100%}
+.chart{width:100%;height:100%;display:block}
+.chart-axis{display:flex;justify-content:space-between;margin-top:5px;font-size:8.5px;color:rgba(139,137,136,.7)}
+
+.mv-nav{display:flex;gap:5px;color:var(--muted);font-size:11px}
+.mv-nav span{width:16px;height:16px;border-radius:5px;display:grid;place-items:center;
+  background:rgba(255,255,255,.05);cursor:pointer;transition:.2s;user-select:none}
+.mv-nav span:hover{background:rgba(147,18,255,.25);color:#e6d3ff}
+.mv-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;
+  padding:5px 0;border-top:1px solid rgba(255,255,255,.05);font-size:9.5px;color:var(--muted)}
+.mv-row b{font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:600;color:var(--text);direction:ltr}
+.mv-row i{font-style:normal;font-size:8.5px;font-weight:600;min-width:36px;text-align:left;direction:ltr}
+.mv-row i.up{color:var(--green)}
+.mv-row i.down{color:var(--red)}
+
+.ic{width:13px;height:13px;flex:none;opacity:.85;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+
+[data-stagger]{opacity:0;transform:translateY(16px)}
+body.ready [data-stagger]{animation:settleIn .8s cubic-bezier(.22,.85,.2,1) forwards;animation-delay:var(--d,.7s)}
+@keyframes settleIn{to{opacity:1;transform:none}}
+
+.row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:9px;
+  background:rgba(255,255,255,.026);border:1px solid rgba(255,255,255,.06);margin-bottom:6px;font-size:10.5px}
+.row .dot{width:6px;height:6px;border-radius:50%;flex:none;background:var(--green);box-shadow:0 0 8px rgba(47,210,122,.8)}
+.row .dot.red{background:var(--red);box-shadow:0 0 8px rgba(255,92,77,.8)}
+.row .dot.violet{background:var(--violet);box-shadow:0 0 8px rgba(147,18,255,.9)}
+.row .dot.amber{background:var(--amber);box-shadow:0 0 8px rgba(255,181,71,.8)}
+.row .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d8d5d4}
+.row .muted{color:var(--muted);font-size:9.5px}
+.row .val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;color:#fff;direction:ltr}
+.row .val.up{color:var(--green)}
+.row .val.down{color:var(--red)}
+
+.hold-card{padding:10px 12px;border-radius:10px;margin-bottom:7px;
+  background:linear-gradient(150deg,rgba(147,18,255,.14),rgba(147,18,255,.03));
+  border:1px solid rgba(147,18,255,.28);font-size:10.5px}
+.hold-card .hc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.hold-card .hc-name{font-weight:600;font-size:11px}
+.hold-card .hc-bal{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;direction:ltr}
+.hold-card .hc-sub{color:var(--muted);font-size:9px}
+
+.toggle{width:30px;height:17px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;flex:none;transition:.25s;cursor:pointer}
+.toggle::after{content:'';position:absolute;top:2px;right:2px;width:13px;height:13px;border-radius:50%;
+  background:#8b8988;transition:.25s}
+.toggle.on{background:rgba(147,18,255,.55)}
+.toggle.on::after{transform:translateX(-13px);background:#fff}
+
+.view-enter{animation:viewIn .45s cubic-bezier(.22,.85,.2,1) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ============ SECTIONS ============ */
+.sections{position:relative;z-index:3;
+  background:radial-gradient(1100px 520px at 50% -140px,rgba(147,18,255,.10),transparent 72%),
+             radial-gradient(900px 460px at 88% 34%,rgba(147,18,255,.055),transparent 70%),#000}
+.section{padding:100px 24px;max-width:1180px;margin:0 auto}
+.section-head{max-width:700px;margin-bottom:52px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:#c9a6ff;margin-bottom:18px}
+.eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--violet);
+  box-shadow:0 0 12px 2px rgba(147,18,255,.9)}
+.section-title{font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.2;letter-spacing:-.01em}
+.section-sub{margin-top:16px;color:var(--muted);font-size:15.5px;line-height:1.85;max-width:640px}
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .75s cubic-bezier(.22,.85,.2,1),transform .75s cubic-bezier(.22,.85,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* What is - intro grid */
+.intro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.intro-card{position:relative;padding:26px 24px 24px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+  transition:.3s}
+.intro-card:hover{border-color:rgba(147,18,255,.45);transform:translateY(-5px);
+  box-shadow:0 26px 60px -26px rgba(147,18,255,.65)}
+.intro-card .ico-box{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(140deg,rgba(147,18,255,.3),rgba(147,18,255,.06));
+  border:1px solid rgba(147,18,255,.32);color:#d3a2ff;margin-bottom:16px}
+.intro-card .ico-box svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.intro-card h3{font-size:16.5px;font-weight:600;margin-bottom:8px}
+.intro-card p{font-size:14px;line-height:1.85;color:var(--muted)}
+
+/* Markets section */
+.markets-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;align-items:start}
+.market-card{border-radius:20px;border:1px solid rgba(255,255,255,.08);padding:22px 22px 10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.012));
+  box-shadow:0 30px 70px -50px rgba(147,18,255,.6)}
+.market-card h5{font-size:12px;letter-spacing:.04em;color:#8b8988;
+  font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.m-table-head,.m-row{display:grid;grid-template-columns:1.5fr .95fr .72fr 1fr .8fr;
+  align-items:center;gap:10px;padding:11px 0;border-top:1px solid rgba(255,255,255,.06)}
+.m-table-head{border-top:0;padding:0 0 8px;font-size:10.5px;letter-spacing:.04em;
+  color:#6f6d6c;font-weight:600}
+.m-table-head span:nth-child(2),.m-table-head span:nth-child(3),
+.m-table-head span:nth-child(5){text-align:left}
+.m-asset{display:flex;align-items:center;gap:10px;min-width:0}
+.m-ic{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#e9d8ff}
+.m-asset b{display:block;font-size:13.5px;font-weight:600;line-height:1.25}
+.m-asset small{display:block;font-size:11px;color:var(--muted)}
+.m-price{text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;direction:ltr}
+.m-chg{text-align:left;font-size:12.5px;font-weight:600;font-family:'Space Grotesk',sans-serif;direction:ltr}
+.m-chg.up{color:var(--green)}
+.m-chg.down{color:var(--red)}
+.m-cap{text-align:left;font-size:12.5px;color:var(--muted);font-family:'Space Grotesk',sans-serif;direction:ltr}
+
+.sent-card{border-radius:20px;border:1px solid rgba(147,18,255,.28);padding:22px;
+  background:radial-gradient(420px 200px at 50% 0%,rgba(147,18,255,.18),transparent 70%),
+             linear-gradient(180deg,rgba(20,13,32,.92),rgba(6,4,10,.96));
+  box-shadow:0 30px 70px -50px rgba(147,18,255,.8);position:relative;overflow:hidden}
+.sent-card::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,#c47dff,transparent);box-shadow:0 0 18px 2px rgba(147,18,255,.7)}
+.sent-card h5{font-size:12px;letter-spacing:.04em;color:#8b8988;
+  font-weight:600;margin-bottom:18px}
+.fg-val{display:flex;align-items:baseline;gap:10px;font-family:'Space Grotesk',sans-serif;
+  font-weight:700;font-size:42px;letter-spacing:-.03em;direction:ltr}
+.fg-val small{font-size:13px;font-weight:600;color:var(--amber);letter-spacing:0;font-family:'Vazirmatn',sans-serif}
+.fg-bar{position:relative;height:9px;border-radius:99px;margin:18px 0 8px;
+  background:linear-gradient(90deg,#2fd27a,#ffb547 52%,#ff5c4d)}
+.fg-bar span{position:absolute;top:50%;right:32%;transform:translate(50%,-50%);
+  width:16px;height:16px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 3px rgba(255,255,255,.18),0 4px 14px rgba(0,0,0,.6)}
+.fg-labels{display:flex;justify-content:space-between;font-size:10px;color:#6f6d6c}
+.sent-metric{display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px;margin-top:14px}
+.sent-metric span{color:var(--muted)}
+.sent-metric b{font-family:'Space Grotesk',sans-serif;font-size:14px;direction:ltr}
+
+/* Two-column deep dive */
+.deep{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.deep-list{list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:30px}
+.deep-list li{display:flex;gap:16px}
+.deep-num{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;
+  background:rgba(147,18,255,.14);border:1px solid rgba(147,18,255,.34);color:#d9b8ff;direction:ltr}
+.deep-list h4{font-size:15.5px;font-weight:600;margin-bottom:5px}
+.deep-list p{font-size:14px;line-height:1.85;color:var(--muted)}
+
+.deep-panel{position:relative;border-radius:20px;padding:26px;border:1px solid rgba(147,18,255,.28);
+  background:linear-gradient(170deg,rgba(20,13,32,.94),rgba(6,4,10,.97));
+  box-shadow:0 40px 90px -40px rgba(147,18,255,.55)}
+.deep-panel::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,#c47dff,transparent);box-shadow:0 0 16px 2px rgba(147,18,255,.7)}
+.deep-panel h5{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:18px;letter-spacing:.04em}
+.deep-metric{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0;
+  border-top:1px solid rgba(255,255,255,.07);font-size:13.5px}
+.deep-metric:first-of-type{border-top:0}
+.deep-metric .k{color:var(--muted)}
+.deep-metric .v{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;direction:ltr}
+.deep-metric .v small{font-size:12px;color:var(--green);font-weight:600;margin-right:8px}
+.deep-metric .v small.dn{color:var(--red)}
+
+/* Risks */
+.risks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
+.risk{padding:22px;border-radius:14px;border:1px solid rgba(255,92,77,.18);
+  background:linear-gradient(180deg,rgba(255,92,77,.06),rgba(255,92,77,.015));transition:.3s}
+.risk:hover{border-color:rgba(255,92,77,.4);transform:translateY(-3px)}
+.risk .rtitle{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;margin-bottom:8px}
+.risk .rbug{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+  background:rgba(255,92,77,.15);color:var(--red)}
+.risk .rbug svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.risk p{font-size:13.5px;line-height:1.8;color:var(--muted)}
+
+/* FAQ */
+.faq-wrap{max-width:820px;margin:0 auto}
+.faq-item{border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.025);
+  margin-bottom:12px;overflow:hidden;transition:.25s}
+.faq-item:hover{border-color:rgba(147,18,255,.35)}
+.faq-item[open]{border-color:rgba(147,18,255,.45);background:rgba(147,18,255,.055)}
+.faq-item summary{cursor:pointer;padding:19px 22px;font-weight:500;font-size:15.5px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';color:#c47dff;font-size:22px;line-height:1;
+  transition:transform .3s cubic-bezier(.22,.85,.2,1)}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-body{padding:0 22px 20px;color:var(--muted);font-size:14.5px;line-height:1.85}
+
+/* CTA */
+.cta-band{padding:0 24px 100px;max-width:1180px;margin:0 auto}
+.cta-inner{position:relative;border-radius:24px;padding:64px 34px;text-align:center;
+  border:1px solid rgba(147,18,255,.32);
+  background:radial-gradient(700px 260px at 50% 120%,rgba(147,18,255,.34),transparent 72%),
+             linear-gradient(180deg,rgba(20,13,32,.9),rgba(6,4,10,.97))}
+.cta-inner::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,#c47dff,transparent);box-shadow:0 0 22px 4px rgba(147,18,255,.7)}
+.cta-inner h2{font-weight:700;font-size:clamp(26px,3.5vw,40px);line-height:1.25}
+.cta-inner p{margin:16px auto 0;max-width:520px;color:var(--muted);font-size:15px;line-height:1.85}
+.cta-inner .cta{margin-top:30px;position:static;opacity:1;transform:none;animation:none}
+
+/* Footer */
+.footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.08);background:#000;padding:60px 24px 30px}
+.footer-in{max-width:1180px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.footer-brand p{margin-top:14px;color:var(--muted);font-size:13.5px;line-height:1.85;max-width:300px}
+.footer-col h6{font-size:12px;letter-spacing:.06em;color:#8b8988;margin-bottom:16px;font-weight:600}
+.footer-col a{display:block;font-size:14px;color:#cfcccb;padding:6px 0;transition:.2s}
+.footer-col a:hover{color:#c9a6ff;transform:translateX(-3px)}
+.newsletter{margin-top:22px;display:flex;gap:8px;max-width:320px}
+.newsletter input{flex:1;min-width:0;height:42px;border-radius:11px;padding:0 14px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;
+  font-family:inherit;font-size:13.5px;outline:0;transition:.2s}
+.newsletter input::placeholder{color:#6d6b6a}
+.newsletter input:focus{border-color:rgba(147,18,255,.55);background:rgba(147,18,255,.08)}
+.newsletter button{height:42px;padding:0 18px;border-radius:11px;border:0;font-weight:600;
+  font-size:13px;color:#fff;background:linear-gradient(180deg,var(--violet-a),var(--violet-b));
+  box-shadow:0 6px 20px rgba(147,18,255,.4);transition:.2s}
+.newsletter button:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.footer-bottom{margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  font-size:12.5px;color:#6d6b6a}
+.footer-social{display:flex;gap:8px}
+.footer-social span{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#a7a4a3;transition:.2s}
+.footer-social span:hover{background:rgba(147,18,255,.22);color:#e6d3ff;
+  border-color:rgba(147,18,255,.45);transform:translateY(-2px)}
+
+/* Toasts / Modal */
+.toasts{position:fixed;left:18px;bottom:18px;z-index:400;display:flex;flex-direction:column;
+  gap:10px;align-items:flex-start;pointer-events:none}
+.toast{pointer-events:auto;max-width:340px;background:rgba(18,12,28,.97);
+  border:1px solid rgba(147,18,255,.38);border-radius:13px;padding:12px 16px;
+  font-size:13.5px;line-height:1.65;
+  box-shadow:0 16px 44px rgba(0,0,0,.7),0 0 30px rgba(147,18,255,.22);
+  animation:toastIn .38s cubic-bezier(.22,.85,.2,1) both;transition:.3s}
+.toast.out{opacity:0;transform:translateY(10px)}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+
+.modal-back{position:fixed;inset:0;z-index:500;padding:20px;display:flex;align-items:center;
+  justify-content:center;background:rgba(3,2,6,.76);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-back.open{opacity:1;pointer-events:auto}
+.modal{position:relative;width:100%;max-width:430px;max-height:88vh;overflow:auto;
+  border-radius:20px;padding:24px;border:1px solid rgba(147,18,255,.34);
+  background:linear-gradient(180deg,#150e22,#08050f);
+  box-shadow:0 40px 100px rgba(0,0,0,.75),0 0 70px rgba(147,18,255,.2);
+  transform:translateY(18px) scale(.97);transition:transform .32s cubic-bezier(.22,.85,.2,1)}
+.modal-back.open .modal{transform:none}
+.modal h3{font-size:19px;font-weight:700;margin-bottom:8px}
+.modal .m-sub{color:var(--muted);font-size:13.5px;line-height:1.75;margin-bottom:20px}
+.m-close{position:absolute;top:14px;left:14px;width:30px;height:30px;border-radius:9px;border:0;
+  background:rgba(255,255,255,.06);color:#b9b6b5;font-size:15px;transition:.2s}
+.m-close:hover{background:rgba(255,92,77,.25);color:#fff}
+.m-input{width:100%;height:44px;border-radius:12px;padding:0 14px;margin-bottom:12px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;
+  font-family:inherit;font-size:14px;outline:0;transition:.2s;direction:ltr}
+.m-input::placeholder{color:#6d6b6a}
+.m-input:focus{border-color:rgba(147,18,255,.6);background:rgba(147,18,255,.08)}
+.m-list{display:flex;flex-direction:column;gap:6px;max-height:250px;overflow:auto}
+.m-list button{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);
+  color:#ddd;font-size:13.5px;text-align:right;transition:.18s}
+.m-list button:hover{background:rgba(147,18,255,.16);border-color:rgba(147,18,255,.4);color:#fff}
+.m-list .k{margin-right:auto;font-size:11px;color:var(--muted)}
+.plan-opt{padding:15px;border-radius:14px;margin-bottom:10px;cursor:pointer;text-align:right;width:100%;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:#fff;
+  transition:.2s;position:relative}
+.plan-opt:hover{border-color:rgba(147,18,255,.55);background:rgba(147,18,255,.12);transform:translateY(-1px)}
+.plan-opt .p-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.plan-opt .p-name{font-weight:600;font-size:14.5px}
+.plan-opt .p-price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;direction:ltr}
+.plan-opt .p-price small{font-size:11px;color:var(--muted);font-weight:400}
+.plan-opt .p-desc{font-size:12.5px;color:var(--muted);line-height:1.65}
+.plan-opt.best{border-color:rgba(147,18,255,.5);background:rgba(147,18,255,.1)}
+.plan-opt .badge{position:absolute;top:-8px;left:14px;font-size:9.5px;font-weight:700;
+  letter-spacing:.04em;padding:3px 9px;border-radius:999px;
+  background:linear-gradient(180deg,var(--violet-a),var(--violet-b));color:#fff}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1080px){
+  .deep{grid-template-columns:1fr;gap:36px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:34px}
+  .sn-links{display:none}
+  .markets-grid{grid-template-columns:1fr}
+}
+@media (max-width:899px),(orientation:portrait){
+  .hero-screen{min-height:0;padding-bottom:8px}
+  .stage{position:relative;left:auto;top:auto;width:100%;height:auto;min-height:0;
+    transform:none!important;display:flex;flex-direction:column}
+  .nav{position:relative;height:auto;padding:16px 18px}
+  .menu{display:none}
+  .planet{position:relative;width:100%;height:auto}
+  #rim{width:100%;height:auto}
+  .hero{position:relative;top:auto;padding:0 18px;margin-top:-7vw}
+  .headline{font-size:clamp(28px,7.8vw,42px);line-height:1.15}
+  .lede{font-size:13.5px;margin-top:18px;max-width:520px;line-height:1.85}
+  .cta{margin-top:24px;flex-wrap:wrap}
+  .btn{padding:13px 24px;font-size:13.5px}
+  .panel-glow{display:none}
+  .panel{position:relative;left:auto;top:auto;margin:34px auto 0;width:calc(100% - 22px);
+    height:auto;flex-direction:column;opacity:1;transform:none}
+  body.ready .panel{animation:none}
+  .sidebar{width:100%;flex-direction:row;align-items:center;gap:6px;overflow-x:auto;
+    border-left:0;border-bottom:1px solid rgba(255,255,255,.07);padding:10px;scrollbar-width:none}
+  .sidebar::-webkit-scrollbar{display:none}
+  .sb-head,.sb-search,.sb-sep,.sb-pro{display:none}
+  .sb-item{height:28px;padding:0 12px;border-radius:999px;font-size:11.5px;
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);flex:none}
+  .sb-item .ic{display:none}
+  .main{padding:12px 11px 18px}
+  .stats{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .chart-wrap{height:130px}
+  [data-stagger]{opacity:1;transform:none;animation:none!important}
+  .section{padding:64px 18px}
+  .section-head{margin-bottom:34px}
+  .cta-band{padding:0 18px 64px}
+  .cta-inner{padding:44px 20px}
+  .footer{padding:46px 18px 26px}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .sticky-nav{height:58px}
+  .m-table-head,.m-row{grid-template-columns:1.6fr .9fr .8fr;gap:8px}
+  .m-cap,.m-table-head span:nth-child(4),.m-table-head span:nth-child(5){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .nav,.lede,.cta,.panel,.panel-glow,[data-stagger],.hl-inner,.reveal{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<div class="sticky-nav" id="stickyNav">
+  <a class="brand" data-scroll="top">
+    <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#d3a2ff"/><stop offset="55%" stop-color="#9312ff"/><stop offset="100%" stop-color="#7a1cf8"/>
+      </linearGradient></defs>
+      <path d="M16 1.5 29 9v14L16 30.5 3 23V9L16 1.5Z" fill="none" stroke="url(#lg1)" stroke-width="2"/>
+      <path d="M10 20.5l4.2-4.6-2.4-.9 6.4-6-1.6 4.9 2.6.7L10 20.5Z" fill="url(#lg1)"/>
+    </svg>
+    <span>زارویکس</span>
+  </a>
+  <nav class="sn-links">
+    <a class="sn-link" data-scroll="top">خانه</a>
+    <a class="sn-link" data-scroll="what-is">بازار مالی چیست؟</a>
+    <a class="sn-link" data-scroll="crypto">بازار کریپتو</a>
+    <a class="sn-link" data-scroll="why">چرا مهم است؟</a>
+    <a class="sn-link" data-scroll="risks">ریسک‌ها</a>
+    <a class="sn-link" data-scroll="faq">پرسش‌ها</a>
+  </nav>
+  <button class="btn btn-primary btn-sm" data-action="launch">شروع رایگان</button>
+</div>
+
+<!-- HERO SCREEN -->
+<div class="hero-screen" id="heroScreen">
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <div class="stage" id="stage">
+    <div class="planet" aria-hidden="true"><canvas id="rim" width="1672" height="717"></canvas></div>
+
+    <header class="nav">
+      <a class="brand" data-scroll="top">
+        <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#d3a2ff"/><stop offset="55%" stop-color="#9312ff"/><stop offset="100%" stop-color="#7a1cf8"/>
+          </linearGradient></defs>
+          <path d="M16 1.5 29 9v14L16 30.5 3 23V9L16 1.5Z" fill="none" stroke="url(#lg2)" stroke-width="2"/>
+          <path d="M10 20.5l4.2-4.6-2.4-.9 6.4-6-1.6 4.9 2.6.7L10 20.5Z" fill="url(#lg2)"/>
+        </svg>
+        <span>زارویکس</span>
+      </a>
+
+      <nav class="menu" id="menu">
+        <a class="menu-item active" data-scroll="top">خانه</a>
+        <a class="menu-item" data-scroll="what-is">بازار مالی</a>
+        <a class="menu-item" data-scroll="crypto">کریپتو</a>
+        <a class="menu-item" data-scroll="why">چرا مهم است؟</a>
+        <a class="menu-item" data-scroll="risks">ریسک‌ها</a>
+        <a class="menu-item" data-scroll="faq">پرسش‌ها</a>
+      </nav>
+
+      <button class="btn btn-primary btn-sm" data-action="launch">شروع رایگان</button>
+    </header>
+
+    <main class="hero">
+      <h1 class="headline">
+        <span class="hl-line"><span class="hl-inner"><span class="grad">بازارها</span> حرکت می‌کنند.</span></span>
+        <span class="hl-line"><span class="hl-inner">شما اول حرکت کنید.</span></span>
+      </h1>
+      <p class="lede">
+        زارویکس داده‌های پراکنده‌ی صرافی‌ها و بلاک‌چین را به یک تصویر شفاف و لحظه‌ای از بازار تبدیل می‌کند
+        — تحلیل، رهگیری پورتفوی و هشدارهای ریسک، همه در یک رابط آرام.
+      </p>
+      <div class="cta">
+        <button class="btn btn-primary" data-action="launch">شروع دوره آزمایشی</button>
+        <button class="btn btn-ghost" data-scroll="what-is">بیشتر بدانید</button>
+      </div>
+    </main>
+
+    <div class="panel-glow" aria-hidden="true"></div>
+
+    <section class="panel" id="panel" aria-label="پیش‌نمایش داشبورد">
+      <div class="panel-edge"></div>
+
+      <aside class="sidebar" data-stagger style="--d:.62s">
+        <div class="sb-head">
+          <span class="sb-brand">زارویکس</span>
+          <svg class="gear" id="gearBtn" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-label="تنظیمات">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>
+          </svg>
+        </div>
+
+        <div class="sb-search" id="sbSearch">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+          <span>جستجوی دارایی</span>
+        </div>
+
+        <a class="sb-item active" data-view="overview">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.6"/></svg>نمای کلی
+        </a>
+        <a class="sb-item" data-view="markets">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M4 17V9M9 17V5M14 17v-6M19 17v-9"/></svg>بازارها
+        </a>
+        <a class="sb-item" data-view="portfolio">
+          <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/>
+            <path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1"/></svg>پورتفوی
+        </a>
+
+        <div class="sb-sep"></div>
+
+        <a class="sb-item" data-view="alerts">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/>
+            <path d="M10.3 21a2 2 0 0 0 3.4 0"/></svg>هشدارها
+        </a>
+        <a class="sb-item" data-view="settings">
+          <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>تنظیمات
+        </a>
+
+        <div class="sb-pro">
+          <div class="pro-title">زارویکس پرو</div>
+          <div class="pro-sub">جریان سفارش، هشدار و API.</div>
+          <button class="pro-btn" data-action="upgrade">ارتقا</button>
+        </div>
+      </aside>
+
+      <div class="main">
+        <div class="topbar" data-stagger style="--d:.7s">
+          <div class="tb-left">
+            <span class="tb-ico" data-toast="هشدار جدیدی نیست. همه‌چیز آرام است.">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/>
+                <path d="M10.3 21a2 2 0 0 0 3.4 0"/></svg></span>
+            <span class="tb-ico" data-toast="فید بازار: زنده — ۱۲٬۴۸۰ جفت‌ارز.">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 13L16 12h5"/></svg></span>
+            <span class="tb-ico" data-toast="شبکه: مِین‌نت — همگام.">
+              <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/>
+                <path d="M3.5 12h17M12 3.5c2.4 2.3 3.7 5.3 3.7 8.5s-1.3 6.2-3.7 8.5c-2.4-2.3-3.7-5.3-3.7-8.5S9.6 5.8 12 3.5Z"/></svg></span>
+          </div>
+          <div class="tb-right">
+            <div class="user" id="userChip" data-toast="وارد شده به‌عنوان آ. ترنر · پرو">
+              <span class="av">آت</span> <span>آ. ترنر</span>
+              <span class="addr">0x4f2…9e1c</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="dashBody"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- SECTIONS -->
+<main class="sections" id="top">
+
+  <!-- WHAT IS A FINANCIAL MARKET -->
+  <section class="section" id="what-is">
+    <div class="section-head reveal">
+      <span class="eyebrow">شروع از پایه</span>
+      <h2 class="section-title">بازار مالی<br>دقیقاً چیست؟</h2>
+      <p class="section-sub">بازار مالی جایی است که در آن «پول» و «دارایی» با هم ملاقات می‌کنند؛ ساختاری سازمان‌یافته یا غیرمتمرکز که در آن خریداران و فروشندگان می‌توانند سهام، اوراق قرضه، ارز، طلا، نفت یا ارز دیجیتال را معامله کنند.</p>
+    </div>
+
+    <div class="intro-grid">
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 5-7 4 4"/><path d="M3 21h18"/></svg></div>
+        <h3>تأمین سرمایه</h3>
+        <p>شرکت‌ها و دولت‌ها با فروش سهام یا اوراق قرضه، سرمایه لازم برای رشد و پروژه‌های خود را جمع می‌کنند.</p>
+      </article>
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>کشف قیمت</h3>
+        <p>برخورد عرضه و تقاضا قیمت واقعی هر دارایی را مشخص می‌کند؛ این قیمت راهنمای همه تصمیم‌های اقتصادی است.</p>
+      </article>
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-4Z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg></div>
+        <h3>مدیریت ریسک</h3>
+        <p>سرمایه‌گذار می‌تواند بفروشد، پوشش ریسک بگیرد یا دارایی‌اش را نقد کند؛ نقدشوندگی ستون اصلی هر بازار سالم است.</p>
+      </article>
+    </div>
+
+    <div class="deep" style="margin-top:56px">
+      <div class="reveal">
+        <h3 class="section-title" style="font-size:clamp(22px,2.6vw,32px)">دسته‌های اصلی بازارهای مالی</h3>
+        <ul class="deep-list">
+          <li><span class="deep-num">۱</span><div><h4>بازار سهام</h4><p>مثل بورس تهران یا نزدک؛ خرید و فروش سهم شرکت‌ها و سهیم شدن در سود و زیان آن‌ها.</p></div></li>
+          <li><span class="deep-num">۲</span><div><h4>بازار اوراق قرضه</h4><p>خرید و فروش بدهی دولت و شرکت‌ها؛ سرمایه‌گذار پول می‌دهد و در ازای آن سود ثابت می‌گیرد.</p></div></li>
+          <li><span class="deep-num">۳</span><div><h4>بازار ارز (فارکس)</h4><p>معامله جفت‌ارزهای جهانی؛ بزرگ‌ترین بازار مالی دنیا با گردش روزانه چند تریلیون دلار.</p></div></li>
+          <li><span class="deep-num">۴</span><div><h4>بازار کالا</h4><p>طلا، نفت، گندم و مواد اولیه؛ پناهگاه سرمایه در برابر تورم و نوسان ارز.</p></div></li>
+          <li><span class="deep-num">۵</span><div><h4>بازار مشتقه</h4><p>قراردادهای آتی و اختیار معامله؛ ابزارهایی که ارزششان از یک دارایی پایه گرفته می‌شود.</p></div></li>
+          <li><span class="deep-num">۶</span><div><h4>بازار ارز دیجیتال</h4><p>بازار ۲۴ ساعته و جهانی دارایی‌های مبتنی بر بلاک‌چین که در ادامه جداگانه بررسی می‌کنیم.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="deep-panel reveal">
+        <h5>ویژگی‌های مشترک همه بازارهای مالی</h5>
+        <div class="deep-metric"><span class="k">نقدشوندگی</span><span class="v">بالا</span></div>
+        <div class="deep-metric"><span class="k">شفافیت قیمت</span><span class="v">عمومی</span></div>
+        <div class="deep-metric"><span class="k">نظارت</span><span class="v">نهاد ناظر</span></div>
+        <div class="deep-metric"><span class="k">ساعت کاری</span><span class="v">محدود</span></div>
+        <div class="deep-metric"><span class="k">واسطه</span><span class="v">کارگزار</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRYPTO SECTION -->
+  <section class="section" id="crypto">
+    <div class="section-head reveal">
+      <span class="eyebrow">بازار کریپتو</span>
+      <h2 class="section-title">ارز دیجیتال<br>چه تفاوتی دارد؟</h2>
+      <p class="section-sub">بازار کریپتو بازاری است که در آن ارزهای دیجیتال — دارایی‌هایی که روی فناوری بلاک‌چین ثبت می‌شوند — معامله می‌شوند. برخلاف بازار سهام، نه ساعت کاری دارد نه نهاد ناظر مرکزی.</p>
+    </div>
+
+    <div class="markets-grid">
+      <div class="market-card reveal">
+        <h5>نمونه‌ای از دارایی‌های پرمعامله <span style="color:#6f6d6c;letter-spacing:.02em;font-weight:400">زنده · ۲۴ ساعت</span></h5>
+        <div class="m-table-head">
+          <span>دارایی</span><span>قیمت</span><span>۲۴ ساعت</span><span>روند ۷ روزه</span><span>ارزش بازار</span>
+        </div>
+        <div id="marketRows"></div>
+      </div>
+
+      <div class="sent-card reveal">
+        <h5>احساسات و جریان سرمایه</h5>
+        <div class="fg-val">۶۸ <small>طمع</small></div>
+        <div class="fg-bar"><span></span></div>
+        <div class="fg-labels"><span>ترس شدید</span><span>خنثی</span><span>طمع شدید</span></div>
+        <div class="sent-metric"><span>تسلط بیت‌کوین</span><b>52.4%</b></div>
+        <div class="sent-metric"><span>لیکوئیدیشن ۲۴ ساعته</span><b>$214.6M</b></div>
+        <div class="sent-metric"><span>نرخ فاندینگ</span><b>+0.011%</b></div>
+        <div class="sent-metric"><span>جریان خالص صرافی</span><b style="color:var(--red)">−$86.2M</b></div>
+      </div>
+    </div>
+
+    <div class="deep" style="margin-top:56px">
+      <div class="reveal">
+        <h3 class="section-title" style="font-size:clamp(22px,2.6vw,32px)">اجزای اصلی بازار کریپتو</h3>
+        <ul class="deep-list">
+          <li><span class="deep-num">A</span><div><h4>صرافی‌های متمرکز (CEX)</h4><p>مثل بایننس یا کوین‌بیس؛ شبیه بورس با دفتر سفارش و حساب کاربری. کاربری ساده اما نیازمند اعتماد به صرافی.</p></div></li>
+          <li><span class="deep-num">B</span><div><h4>صرافی‌های غیرمتمرکز (DEX)</h4><p>مثل یونی‌سواپ؛ معامله مستقیم از کیف پول، بدون واسطه. امنیت بیشتر اما تجربه کاربری پیچیده‌تر.</p></div></li>
+          <li><span class="deep-num">C</span><div><h4>کیف پول‌ها</h4><p>نرم‌افزاری یا سخت‌افزاری؛ کلید خصوصی شما را نگه می‌دارند. «کلیدت را گم کنی، دارایی‌ات را گم کرده‌ای».</p></div></li>
+          <li><span class="deep-num">D</span><div><h4>استیبل‌کوین‌ها</h4><p>توکن‌هایی مثل USDT و USDC که ارزششان به دلار گره خورده و پناهگاه امن نوسان‌های شدید هستند.</p></div></li>
+          <li><span class="deep-num">E</span><div><h4>دیفای (DeFi)</h4><p>وام‌دهی، استیکینگ و تأمین نقدینگی بدون بانک؛ دنیای مالی جدید روی بلاک‌چین.</p></div></li>
+          <li><span class="deep-num">F</span><div><h4>NFTها</h4><p>دارایی‌های دیجیتال یکتا که در بازارهای جداگانه معامله می‌شوند و مالکیتشان روی بلاک‌چین ثبت است.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="deep-panel reveal">
+        <h5>مقایسه بازار سنتی و کریپتو</h5>
+        <div class="deep-metric"><span class="k">ساعت کاری</span><span class="v">۲۴/۷</span></div>
+        <div class="deep-metric"><span class="k">نظارت</span><span class="v" style="color:var(--amber)">متغیر</span></div>
+        <div class="deep-metric"><span class="k">واسطه</span><span class="v">اختیاری</span></div>
+        <div class="deep-metric"><span class="k">نوسان</span><span class="v" style="color:var(--red)">بسیار بالا</span></div>
+        <div class="deep-metric"><span class="k">شفافیت</span><span class="v" style="color:var(--green)">بالا</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT MATTERS -->
+  <section class="section" id="why">
+    <div class="section-head reveal">
+      <span class="eyebrow">چرا مهم است؟</span>
+      <h2 class="section-title">چهار دلیل که<br>بازار کریپتو را جدی می‌کند.</h2>
+      <p class="section-sub">این بازار در کمتر از دو دهه از یک ایده ناشناخته به یک اکوسیستم چند تریلیون دلاری تبدیل شده است. دلایل اصلی این اهمیت:</p>
+    </div>
+
+    <div class="intro-grid">
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M8 12h8"/></svg></div>
+        <h3>دسترسی آزاد</h3>
+        <p>هیچ‌کس نمی‌تواند حساب شما را ببندد یا تراکنش را مسدود کند. هر کسی با اینترنت می‌تواند شرکت کند.</p>
+      </article>
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 13L16 12h5"/></svg></div>
+        <h3>شفافیت کامل</h3>
+        <p>همه تراکنش‌ها روی بلاک‌چین ثبت و برای عموم قابل مشاهده‌اند؛ چیزی پنهان نمی‌ماند.</p>
+      </article>
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <h3>نوآوری مالی</h3>
+        <p>امکان ساخت ابزارهای مالی جدید بدون نیاز به مجوز؛ از وام‌دهی غیرمتمرکز تا بازارهای پیش‌بینی.</p>
+      </article>
+      <article class="intro-card reveal">
+        <div class="ico-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>بازار ۲۴/۷</h3>
+        <p>فرصت‌های معاملاتی در هر ساعت شبانه‌روز، در هر جای دنیا، حتی روزهای تعطیل.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <section class="section" id="risks">
+    <div class="section-head reveal">
+      <span class="eyebrow">ریسک‌ها</span>
+      <h2 class="section-title">پنج ریسکی که<br>باید بشناسید.</h2>
+      <p class="section-sub">بازار کریپتو فرصت‌های بزرگی دارد، اما بدون شناخت ریسک‌ها، این فرصت‌ها می‌توانند به ضررهای سنگین تبدیل شوند.</p>
+    </div>
+
+    <div class="risks">
+      <article class="risk reveal">
+        <div class="rtitle"><span class="rbug"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>نوسان شدید</div>
+        <p>ارزش یک دارایی می‌تواند در چند ساعت نصف شود. بدون مدیریت حجم پوزیشن، این نوسان می‌تواند سرمایه را نابود کند.</p>
+      </article>
+      <article class="risk reveal">
+        <div class="rtitle"><span class="rbug"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>کلاهبرداری و پروژه‌های جعلی</div>
+        <p>به‌ویژه در توکن‌های تازه‌عرضه‌شده، پروژه‌های جعلی می‌توانند سرمایه‌گذاران را قربانی کنند. پیش از هر سرمایه‌گذاری، تیم و قرارداد را بررسی کنید.</p>
+      </article>
+      <article class="risk reveal">
+        <div class="rtitle"><span class="rbug"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>ریسک کیف پول</div>
+        <p>اگر کلید خصوصی را گم کنید یا به فرد دیگری بدهید، دارایی برای همیشه از دست می‌رود. هیچ بازیابی مرکزی وجود ندارد.</p>
+      </article>
+      <article class="risk reveal">
+        <div class="rtitle"><span class="rbug"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>ریسک قانونی</div>
+        <p>قوانین در کشورهای مختلف متفاوت و در حال تغییر است. ممکن است دارایی‌ای در یک کشور آزاد و در کشور دیگر ممنوع باشد.</p>
+      </article>
+      <article class="risk reveal">
+        <div class="rtitle"><span class="rbug"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span>ریسک نقدشوندگی</div>
+        <p>بعضی توکن‌ها خریدار کافی ندارند؛ در بحران ممکن است نتوانید به قیمت منصفانه بفروشید و متحمل ضرر شوید.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-head reveal" style="max-width:820px;margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" style="display:inline-flex">پرسش‌های پرتکرار</span>
+      <h2 class="section-title">پاسخ، نه حدس.</h2>
+    </div>
+    <div class="faq-wrap">
+      <details class="faq-item reveal"><summary>بازار مالی سنتی و بازار کریپتو چه تفاوتی دارند؟</summary>
+        <div class="faq-body">بازار سنتی متمرکز، نظارت‌شده و محدود به ساعت کاری است؛ بازار کریپتو غیرمتمرکز، ۲۴ ساعته و شفاف‌تر است، اما پرنوسان‌تر و ریسک‌پذیرتر. هر دو یک کار می‌کنند: اتصال پول به فرصت.</div></details>
+      <details class="faq-item reveal"><summary>آیا زارویکس پول من را نگه می‌دارد؟</summary>
+        <div class="faq-body">خیر. زارویکس فقط خواندنی است. شما یک آدرس عمومی وصل می‌کنید و پلتفرم تصویری کامل از دارایی‌ها می‌سازد؛ هیچ‌وقت امضا یا عبارت بازیابی درخواست نمی‌کند.</div></details>
+      <details class="faq-item reveal"><summary>داده‌ها از کجا می‌آیند؟</summary>
+        <div class="faq-body">ترکیبی از وب‌سوکت صرافی‌ها، ایندکسرهای آن‌چین و لایه نرمال‌سازی اختصاصی. هر عدد روی صفحه با حداقل دو منبع مستقل تطبیق داده می‌شود.</div></details>
+      <details class="faq-item reveal"><summary>قیمت‌ها چقدر به‌روزند؟</summary>
+        <div class="faq-body">به‌صورت استریم، نه پولینگ. میانگین تأخیر سرتاسری در ۹۰ روز گذشته ۳۸ میلی‌ثانیه است، از لحظه ثبت در صرافی تا نمایش روی صفحه شما.</div></details>
+      <details class="faq-item reveal"><summary>آیا می‌توانم داده‌ام را خروجی بگیرم؟</summary>
+        <div class="faq-body">بله. هر ویو را می‌توانید به CSV خروجی بدهید. حساب‌های پرو ۱۲ ماه تاریخچه نگه می‌دارند و اشتراک Desk کلید API و وب‌هوک هم دارد.</div></details>
+      <details class="faq-item reveal"><summary>سرمایه‌گذاری در کریپتو برای شروع مناسب است؟</summary>
+        <div class="faq-body">کریپتو یک بازار پرریسک است. اگر تازه شروع کرده‌اید، ابتدا با مبالغ کوچک، آموزش و شناخت پروژه‌ها پیش بروید و هرگز پولی که توان از دست دادنش را ندارید وارد نکنید.</div></details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="cta-inner reveal">
+      <h2>بازار را شفاف ببینید، همین امروز.</h2>
+      <p>یک آدرس کیف پول وارد کنید و در کمتر از یک دقیقه تصویری کامل بگیرید. بدون ثبت‌نام، بدون کارت، بدون واسطه.</p>
+      <div class="cta">
+        <button class="btn btn-primary" data-action="launch">شروع دوره آزمایشی</button>
+        <button class="btn btn-ghost" data-action="upgrade">مقایسه پلن‌ها</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" data-scroll="top">
+          <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <defs><linearGradient id="lg3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#d3a2ff"/><stop offset="55%" stop-color="#9312ff"/><stop offset="100%" stop-color="#7a1cf8"/>
+            </linearGradient></defs>
+            <path d="M16 1.5 29 9v14L16 30.5 3 23V9L16 1.5Z" fill="none" stroke="url(#lg3)" stroke-width="2"/>
+            <path d="M10 20.5l4.2-4.6-2.4-.9 6.4-6-1.6 4.9 2.6.7L10 20.5Z" fill="url(#lg3)"/>
+          </svg>
+          <span>زارویکس</span>
+        </a>
+        <p>هوش بازار کریپتو برای کسانی که شفافیت را به هیاهو ترجیح می‌دهند.</p>
+        <form class="newsletter" id="newsletter">
+          <input type="email" id="newsEmail" placeholder="you@domain.com" aria-label="ایمیل">
+          <button type="submit">عضویت</button>
+        </form>
+      </div>
+      <div class="footer-col">
+        <h6>محصول</h6>
+        <a data-scroll="what-is">بازار مالی چیست؟</a>
+        <a data-scroll="crypto">بازار کریپتو</a>
+        <a data-scroll="why">چرا مهم است؟</a>
+        <a data-scroll="risks">ریسک‌ها</a>
+      </div>
+      <div class="footer-col">
+        <h6>منابع</h6>
+        <a data-scroll="faq">پرسش‌های پرتکرار</a>
+        <a data-toast="مستندات در حال نوشته شدن است — به‌زودی.">مستندات</a>
+        <a data-toast="همه سرویس‌ها فعال · uptime ۹۹.۹۸٪">وضعیت سامانه</a>
+        <a data-toast="آموزش‌ها در حال آماده‌سازی است.">آکادمی</a>
+      </div>
+      <div class="footer-col">
+        <h6>شرکت</h6>
+        <a data-toast="صفحه درباره ما به‌زودی.">درباره ما</a>
+        <a data-toast="در حال حاضر استخدام نمی‌کنیم.">فرصت‌های شغلی</a>
+        <a data-toast="تماس: hello@zarvix.example">تماس</a>
+        <a data-toast="سیاست حفظ حریم خصوصی — نسخه نمایشی.">حریم خصوصی</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© ۲۰۲۶ زارویکس لبز. محصولی نمایشی برای نشان دادن قابلیت‌ها.</span>
+      <div class="footer-social">
+        <span data-toast="لینک‌های خارجی در این نسخه نمایشی غیرفعال‌اند.">𝕏</span>
+        <span data-toast="لینک‌های خارجی در این نسخه نمایشی غیرفعال‌اند.">in</span>
+        <span data-toast="لینک‌های خارجی در این نسخه نمایشی غیرفعال‌اند.">◎</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts"></div>
+<div class="modal-back" id="modalBack"><div class="modal" id="modal"></div></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  var heroScreen = $('#heroScreen');
+  var stage      = $('#stage');
+  var starsCv    = $('#stars');
+  var rimCv      = $('#rim');
+  var dashBody   = $('#dashBody');
+  var stickyNav  = $('#stickyNav');
+  var toastsEl   = $('#toasts');
+  var modalBack  = $('#modalBack');
+  var modalEl    = $('#modal');
+
+  var reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobileMQ = window.matchMedia('(max-width: 899px), (orientation: portrait)');
+  function isMobile(){ return mobileMQ.matches; }
+
+  /* ---------- TOAST ---------- */
+  function toast(msg){
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    toastsEl.appendChild(t);
+    setTimeout(function(){
+      t.classList.add('out');
+      setTimeout(function(){ t.remove(); }, 320);
+    }, 3000);
+  }
+
+  /* ---------- MODAL ---------- */
+  function openModal(html){
+    modalEl.innerHTML = '<button class="m-close" data-mact="close" aria-label="بستن">✕</button>' + html;
+    modalBack.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var input = modalEl.querySelector('input');
+    if (input) setTimeout(function(){ input.focus(); }, 120);
+  }
+  function closeModal(){
+    modalBack.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openTrial(){
+    openModal(
+      '<h3>شروع دوره آزمایشی</h3>' +
+      '<p class="m-sub">۱۴ روز استفاده از زارویکس پرو. بدون نیاز به کارت بانکی، با یک کلیک لغو کنید.</p>' +
+      '<input class="m-input" type="email" id="trialEmail" placeholder="you@domain.com" autocomplete="email">' +
+      '<button class="btn btn-primary btn-block" data-mact="trial">ایجاد حساب</button>'
+    );
+  }
+
+  function openUpgrade(){
+    openModal(
+      '<h3>انتخاب پلن</h3>' +
+      '<p class="m-sub">هر زمان خواستید ارتقا دهید یا لغو کنید. قیمت‌ها نمایشی هستند.</p>' +
+      '<button class="plan-opt" data-mact="plan" data-plan="استارتر">' +
+        '<div class="p-top"><span class="p-name">استارتر</span><span class="p-price">$0<small>/ماه</small></span></div>' +
+        '<div class="p-desc">قیمت لحظه‌ای، ۳ واچ‌لیست، تاریخچه ۳۰ روزه.</div></button>' +
+      '<button class="plan-opt best" data-mact="plan" data-plan="پرو">' +
+        '<span class="badge">محبوب‌ترین</span>' +
+        '<div class="p-top"><span class="p-name">زارویکس پرو</span><span class="p-price">$29<small>/ماه</small></span></div>' +
+        '<div class="p-desc">جریان سفارش، هشدار نامحدود، خروجی ۱۲ ماهه.</div></button>' +
+      '<button class="plan-opt" data-mact="plan" data-plan="دسک">' +
+        '<div class="p-top"><span class="p-name">دسک</span><span class="p-price">$99<small>/ماه</small></span></div>' +
+        '<div class="p-desc">همه‌چیز در پرو + ۵ صندلی تیمی و دسترسی API.</div></button>'
+    );
+  }
+
+  var searchItems = [
+    {label:'نمای کلی', target:'overview'},
+    {label:'بازارها', target:'markets'},
+    {label:'پورتفوی', target:'portfolio'},
+    {label:'هشدارها', target:'alerts'},
+    {label:'تنظیمات', target:'settings'},
+    {label:'بازار مالی چیست؟', target:'what-is'},
+    {label:'بازار کریپتو', target:'crypto'},
+    {label:'چرا مهم است؟', target:'why'},
+    {label:'ریسک‌ها', target:'risks'},
+    {label:'پرسش‌ها', target:'faq'}
+  ];
+
+  function openSearch(){
+    openModal(
+      '<h3>جستجوی سریع</h3>' +
+      '<p class="m-sub">به هر بخش یا ویو بروید.</p>' +
+      '<input class="m-input" id="searchInput" placeholder="جستجو…" autocomplete="off">' +
+      '<div class="m-list" id="searchList"></div>'
+    );
+    var input = $('#searchInput');
+    var list  = $('#searchList');
+    function render(q){
+      var query = (q||'').toLowerCase().trim();
+      var items = searchItems.filter(function(it){
+        return !query || it.label.toLowerCase().indexOf(query) > -1;
+      });
+      if (!items.length){
+        list.innerHTML = '<div style="padding:14px;color:#8b8988;font-size:13px">موردی یافت نشد.</div>';
+        return;
+      }
+      list.innerHTML = items.map(function(it){
+        return '<button data-mact="goto" data-target="' + it.target + '">' + it.label + '</button>';
+      }).join('');
+    }
+    render('');
+    input.addEventListener('input', function(){ render(input.value); });
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){
+        var first = list.querySelector('button');
+        if (first) first.click();
+      }
+    });
+  }
+
+  modalBack.addEventListener('click', function(e){
+    if (e.target === modalBack){ closeModal(); return; }
+    var btn = e.target.closest('[data-mact]');
+    if (!btn) return;
+    var act = btn.getAttribute('data-mact');
+    if (act === 'close'){ closeModal(); return; }
+    if (act === 'trial'){
+      var em = $('#trialEmail');
+      var v = em ? em.value.trim() : '';
+      if (!v || v.indexOf('@') < 1){ toast('ایمیل معتبر وارد کنید'); return; }
+      closeModal();
+      toast('حساب ساخته شد — به زارویکس خوش آمدید.');
+      return;
+    }
+    if (act === 'plan'){
+      var plan = btn.getAttribute('data-plan');
+      closeModal();
+      toast('پلن ' + plan + ' انتخاب شد — نسخه نمایشی، پرداختی انجام نمی‌شود.');
+      return;
+    }
+    if (act === 'goto'){
+      var target = btn.getAttribute('data-target');
+      closeModal();
+      if (['what-is','crypto','why','risks','faq','markets'].indexOf(target) > -1) scrollToId(target);
+      else setView(target);
+      return;
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modalBack.classList.contains('open')) closeModal();
+  });
+
+  /* ---------- STARS ---------- */
+  function drawStars(){
+    var rect = heroScreen.getBoundingClientRect();
+    var w = Math.max(1, Math.round(rect.width));
+    var h = Math.max(1, Math.round(rect.height));
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    starsCv.width  = Math.floor(w*dpr);
+    starsCv.height = Math.floor(h*dpr);
+    var ctx = starsCv.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+
+    var count = Math.round((w*h)/2600);
+    count = Math.max(140, Math.min(count, 900));
+
+    for (var i=0; i<count; i++){
+      var x = Math.random()*w, y = Math.random()*h;
+      var big = Math.random() > 0.93;
+      var r = big ? (0.85 + Math.random()*0.85) : (0.22 + Math.random()*0.6);
+      var a = big ? (0.6 + Math.random()*0.4) : (0.18 + Math.random()*0.55);
+      ctx.beginPath();
+      ctx.arc(x,y,r,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,' + a.toFixed(3) + ')';
+      ctx.fill();
+      if (big){
+        ctx.beginPath();
+        ctx.arc(x,y,r*3.6,0,Math.PI*2);
+        ctx.fillStyle = 'rgba(190,150,255,' + (a*0.10).toFixed(3) + ')';
+        ctx.fill();
+      }
+    }
+  }
+
+  /* ---------- PLANET RIM ---------- */
+  function drawRim(){
+    var W = 1672, H = 717;
+    rimCv.width = W; rimCv.height = H;
+    var ctx = rimCv.getContext('2d');
+    ctx.clearRect(0,0,W,H);
+
+    var cx = W/2, cy = -300, R = 620, MAX = 1300;
+    var g = ctx.createRadialGradient(cx,cy,0,cx,cy,MAX);
+    g.addColorStop(0.000,'#06020c');
+    g.addColorStop(0.400,'#0a0414');
+    g.addColorStop(0.455,'#2a0a4d');
+    g.addColorStop(0.470,'#6b1ecf');
+    g.addColorStop(0.477,'#c47dff');
+    g.addColorStop(0.487,'#9312ff');
+    g.addColorStop(0.520,'rgba(147,18,255,0.42)');
+    g.addColorStop(0.600,'rgba(147,18,255,0.13)');
+    g.addColorStop(0.750,'rgba(147,18,255,0.03)');
+    g.addColorStop(1.000,'rgba(147,18,255,0)');
+
+    ctx.beginPath(); ctx.rect(0,0,W,H); ctx.fillStyle = g; ctx.fill();
+
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i=0; i<26; i++){
+      var a0 = Math.PI*(0.12 + Math.random()*0.76);
+      var len = 0.03 + Math.random()*0.16;
+      var rr = R + (Math.random()-0.4)*26;
+      ctx.beginPath();
+      ctx.arc(cx,cy,rr,a0,a0+len);
+      ctx.strokeStyle = 'rgba(' + (170 + Math.floor(Math.random()*60)) + ',110,255,' +
+                        (0.05 + Math.random()*0.28).toFixed(3) + ')';
+      ctx.lineWidth = 0.6 + Math.random()*2.6;
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(cx,cy,R-12,Math.PI*0.16,Math.PI*0.84);
+    ctx.strokeStyle = 'rgba(200,150,255,0.10)';
+    ctx.lineWidth = 22;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  /* ---------- LAYOUT ---------- */
+  function layout(){
+    if (isMobile()){ stage.style.transform = 'none'; return; }
+    var rect = heroScreen.getBoundingClientRect();
+    var s = Math.min(rect.width/1672, rect.height/941);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+
+  /* ---------- CHART ---------- */
+  var chartData = {
+    '7D' : [0.42,0.51,0.47,0.58,0.55,0.63,0.72],
+    '30D': [0.35,0.42,0.38,0.47,0.52,0.48,0.56,0.61,0.57,0.66,0.70,0.74],
+    '90D': [0.28,0.34,0.30,0.38,0.44,0.40,0.48,0.52,0.47,0.55,0.62,0.70]
+  };
+  var chartLabels = {
+    '7D' : ['د','س','چ','پ','ج','ش','ی'],
+    '30D': ['ه۱','ه۲','ه۳','ه۴','ه۵','ه۶'],
+    '90D': ['ژان','فور','مار','آپر','مه','ژوئن']
+  };
+  var periods = ['7D','30D','90D'];
+  var currentPeriod = '7D';
+
+  function smoothPath(pts){
+    if (!pts.length) return '';
+    var d = 'M' + pts[0].x + ',' + pts[0].y;
+    for (var i=0; i<pts.length-1; i++){
+      var p0 = pts[i], p1 = pts[i+1];
+      var mx = (p0.x + p1.x)/2;
+      d += ' C' + mx + ',' + p0.y + ' ' + mx + ',' + p1.y + ' ' + p1.x + ',' + p1.y;
+    }
+    return d;
+  }
+
+  function renderChart(){
+    var host = $('#chartSvg');
+    var axis = $('#chartAxis');
+    var chip = $('#chartChip');
+    if (!host || !axis) return;
+    if (chip) chip.textContent = currentPeriod;
+    var vals = chartData[currentPeriod];
+    var pts = vals.map(function(v,i){
+      return { x: +(i/(vals.length-1)*700).toFixed(2), y: +((1-v)*86 + 12).toFixed(2) };
+    });
+    var line = smoothPath(pts);
+    var area = line + ' L700,112 L0,112 Z';
+    var last = pts[pts.length-1];
+    host.innerHTML =
+      '<path d="' + area + '" fill="url(#areaGrad)"/>' +
+      '<path d="' + line + '" fill="none" stroke="url(#lineGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="' + last.x + '" cy="' + last.y + '" r="3.4" fill="#c47dff"/>' +
+      '<circle cx="' + last.x + '" cy="' + last.y + '" r="7" fill="#9312ff" opacity=".22"/>';
+    axis.innerHTML = chartLabels[currentPeriod].map(function(l){ return '<span>'+l+'</span>'; }).join('');
+  }
+
+  /* ---------- TOP MOVERS ---------- */
+  var moverPages = [
+    { title:'بیشترین رشد · ۲۴ ساعت', rows:[
+      {s:'SOL', p:'$172.40', c:6.81},
+      {s:'AVAX',p:'$38.12',  c:5.10},
+      {s:'LINK',p:'$18.76',  c:4.43},
+      {s:'INJ', p:'$27.90',  c:3.24},
+      {s:'TIA', p:'$9.84',   c:2.76}
+    ]},
+    { title:'بیشترین افت · ۲۴ ساعت', rows:[
+      {s:'XRP', p:'$0.6123', c:-3.22},
+      {s:'ADA', p:'$0.4821', c:-2.41},
+      {s:'DOT', p:'$6.12',   c:-1.86},
+      {s:'ATOM',p:'$8.44',   c:-1.32},
+      {s:'APT', p:'$7.05',   c:-0.94}
+    ]},
+    { title:'بیشترین حجم · ۲۴ ساعت', rows:[
+      {s:'BTC', p:'$67,412', c:2.42},
+      {s:'ETH', p:'$3,512',  c:1.86},
+      {s:'SOL', p:'$172.40', c:6.81},
+      {s:'BNB', p:'$598.12', c:-0.74},
+      {s:'DOGE',p:'$0.1421', c:3.11}
+    ]}
+  ];
+  var moverPage = 0;
+
+  function renderMovers(){
+    var title = $('#mvTitle');
+    var rows  = $('#mvRows');
+    if (!title || !rows) return;
+    var page = moverPages[moverPage];
+    title.textContent = page.title;
+    rows.innerHTML = page.rows.map(function(r){
+      return '<div class="mv-row"><span>' + r.s + '</span><b>' + r.p + '</b>' +
+             '<i class="' + (r.c >= 0 ? 'up' : 'down') + '">' +
+             (r.c >= 0 ? '+' : '') + r.c + '%</i></div>';
+    }).join('');
+  }
+
+  /* ---------- MARKET TABLE ---------- */
+  function renderMarketTable(){
+    var host = $('#marketRows');
+    if (!host) return;
+    var assets = [
+      ['BTC','بیت‌کوین','$67,412','+2.42%','$1.32T','up'],
+      ['ETH','اتریوم','$3,512','+1.86%','$421B','up'],
+      ['SOL','سولانا','$172.40','+6.81%','$78B','up'],
+      ['BNB','بی‌ان‌بی','$598.12','−0.74%','$92B','down'],
+      ['XRP','ریپل','$0.6123','−3.22%','$34B','down'],
+      ['ADA','کاردانو','$0.4821','−2.41%','$17B','down']
+    ];
+    host.innerHTML = assets.map(function(a){
+      return '<div class="m-row">' +
+        '<div class="m-asset"><span class="m-ic">' + a[0] + '</span>' +
+          '<div><b>' + a[0] + '</b><small>' + a[1] + '</small></div></div>' +
+        '<div class="m-price">' + a[2] + '</div>' +
+        '<div class="m-chg ' + a[5] + '">' + a[3] + '</div>' +
+        '<div style="text-align:center;color:' + (a[5]==='up'?'var(--green)':'var(--red)') + '">' +
+          (a[5]==='up'?'▲':'▼') + '</div>' +
+        '<div class="m-cap">' + a[4] + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ---------- VIEWS ---------- */
+  function dashboardHTML(){
+    return '' +
+      '<div class="stats">' +
+        '<div class="stat" data-stagger style="--d:.76s">' +
+          '<div class="stat-label">حجم کل رصدشده (۲۴ ساعت)</div>' +
+          '<div class="stat-val">$84.2B <span class="delta up">+6.4%</span></div>' +
+        '</div>' +
+        '<div class="stat" data-stagger style="--d:.82s">' +
+          '<div class="stat-label">جفت‌ارزهای رصدشده · صرافی‌ها</div>' +
+          '<div class="stat-val">12,480 <span class="delta down">−0.6%</span></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="grid">' +
+        '<div class="card" data-stagger style="--d:.88s">' +
+          '<div class="card-head">' +
+            '<span class="card-title">تسلط بیت‌کوین · روند ۷ روزه</span>' +
+            '<span class="chip" id="chartChip" data-chart-cycle>7D</span>' +
+          '</div>' +
+          '<div class="chart-wrap">' +
+            '<svg class="chart" viewBox="0 0 700 112" preserveAspectRatio="none" aria-hidden="true">' +
+              '<defs>' +
+                '<linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">' +
+                  '<stop offset="0%" stop-color="#9312ff" stop-opacity=".46"/>' +
+                  '<stop offset="55%" stop-color="#9312ff" stop-opacity=".16"/>' +
+                  '<stop offset="100%" stop-color="#9312ff" stop-opacity="0"/>' +
+                '</linearGradient>' +
+                '<linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">' +
+                  '<stop offset="0%" stop-color="#7a1cf8"/>' +
+                  '<stop offset="55%" stop-color="#b45cff"/>' +
+                  '<stop offset="100%" stop-color="#d3a2ff"/>' +
+                '</linearGradient>' +
+              '</defs>' +
+              '<g id="chartSvg"></g>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="chart-axis" id="chartAxis"></div>' +
+        '</div>' +
+        '<div class="card" data-stagger style="--d:.94s">' +
+          '<div class="card-head">' +
+            '<span class="card-title" id="mvTitle">بیشترین رشد · ۲۴ ساعت</span>' +
+            '<span class="mv-nav"><span data-mv="-1">›</span><span data-mv="1">‹</span></span>' +
+          '</div>' +
+          '<div id="mvRows"></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function marketsViewHTML(){
+    var assets = [
+      ['BTC','بیت‌کوین','$67,412','+2.42%','up'],
+      ['ETH','اتریوم','$3,512','+1.86%','up'],
+      ['SOL','سولانا','$172.40','+6.81%','up'],
+      ['BNB','بی‌ان‌بی','$598.12','−0.74%','down'],
+      ['XRP','ریپل','$0.6123','−3.22%','down'],
+      ['ADA','کاردانو','$0.4821','−2.41%','down'],
+      ['AVAX','آوالانچ','$38.12','+5.10%','up'],
+      ['DOGE','دوج‌کوین','$0.1421','+3.11%','up']
+    ];
+    return '<div style="margin-top:9px"><div class="card">' +
+      '<div class="card-head"><span class="card-title">بازارها · دارایی‌های پرمعامله</span>' +
+      '<span class="chip">زنده</span></div>' +
+      assets.map(function(a){
+        return '<div class="row"><span class="dot ' + (a[4]==='up'?'':'red') + '"></span>' +
+          '<span class="grow"><b style="color:#fff;font-size:11px">' + a[0] + '</b> ' +
+          '<span class="muted">' + a[1] + '</span></span>' +
+          '<span class="muted" style="min-width:70px;text-align:left;font-family:Space Grotesk;direction:ltr">' + a[2] + '</span>' +
+          '<span class="val ' + a[4] + '">' + a[3] + '</span></div>';
+      }).join('') +
+      '</div></div>';
+  }
+
+  function portfolioHTML(){
+    return '<div style="margin-top:9px">' +
+      '<div class="hold-card"><div class="hc-top"><span class="hc-name">ارزش کل</span>' +
+        '<span class="hc-bal">$184,210.44</span></div>' +
+        '<div class="hc-sub">+$6,124.90 (۲۴ ساعت) · +3.44%</div></div>' +
+      '<div class="hold-card" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08)">' +
+        '<div class="hc-top"><span class="hc-name">BTC · ۱.۲۴</span>' +
+        '<span class="hc-bal">$83,591</span></div>' +
+        '<div class="hc-sub">میانگین ورود $61,200 · +$7,712</div></div>' +
+      '<div class="hold-card" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08)">' +
+        '<div class="hc-top"><span class="hc-name">ETH · ۱۲.۴۸</span>' +
+        '<span class="hc-bal">$43,829</span></div>' +
+        '<div class="hc-sub">میانگین ورود $2,840 · +$8,364</div></div>' +
+      '<div class="hold-card" style="background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08)">' +
+        '<div class="hc-top"><span class="hc-name">SOL · ۳۱۲.۵</span>' +
+        '<span class="hc-bal">$53,875</span></div>' +
+        '<div class="hc-sub">میانگین ورود $118.40 · +$16,875</div></div>' +
+      '<button class="btn btn-primary btn-block btn-sm" data-action="launch" style="margin-top:6px">افزودن کیف پول</button>' +
+      '</div>';
+  }
+
+  function alertsHTML(){
+    return '<div style="margin-top:9px"><div class="card">' +
+      '<div class="card-head"><span class="card-title">هشدارهای اخیر</span>' +
+      '<span class="chip">زنده</span></div>' +
+      '<div class="row"><span class="dot amber"></span><span class="grow">بیت‌کوین از $67,000 عبور کرد</span>' +
+        '<span class="muted">۱ دقیقه</span><span class="val up">TRIGGERED</span></div>' +
+      '<div class="row"><span class="dot"></span><span class="grow">فاندینگ SOL مثبت شد</span>' +
+        '<span class="muted">۸ دقیقه</span><span class="val up">OK</span></div>' +
+      '<div class="row"><span class="dot red"></span><span class="grow">آبشار لیکوئیدیشن ETH در دید</span>' +
+        '<span class="muted">۲۲ دقیقه</span><span class="val down">WATCH</span></div>' +
+      '<div class="row"><span class="dot violet"></span><span class="grow">انتقال ۴٬۲۰۰ BTC به صرافی</span>' +
+        '<span class="muted">۱ ساعت</span><span class="val down">FLOW</span></div>' +
+      '</div>' +
+      '<div class="card" style="margin-top:9px"><div class="card-head"><span class="card-title">ساعت‌های آرام</span></div>' +
+        '<div class="row" style="cursor:pointer" data-toggle-row>' +
+          '<div class="grow"><div style="color:#fff;font-size:11px">مزاحم نشوید</div>' +
+          '<div class="muted" style="font-size:9px">۲۲:۰۰ تا ۰۷:۰۰ به وقت محلی</div></div>' +
+          '<span class="toggle on"></span></div>' +
+      '</div></div>';
+  }
+
+  function settingsHTML(){
+    var opts = [
+      ['هشدار قیمت','اطلاع از تغییرات واچ‌لیست','on'],
+      ['هشدار جریان','حرکت نهنگ و صرافی','on'],
+      ['ساعت آرام','بی‌صدا کردن هشدارها در شب','on'],
+      ['دسترسی API','نیازمند پلن پرو','off']
+    ];
+    return '<div style="margin-top:9px"><div class="card">' +
+      '<div class="card-head"><span class="card-title">ترجیحات</span>' +
+        '<span class="chip">محلی</span></div>' +
+      opts.map(function(o){
+        return '<div class="row" style="cursor:pointer" data-toggle-row>' +
+          '<div class="grow"><div style="color:#fff;font-size:11px">' + o[0] + '</div>' +
+          '<div class="muted" style="font-size:9px">' + o[1] + '</div></div>' +
+          '<span class="toggle ' + (o[2]==='on'?'on':'') + '"></span></div>';
+      }).join('') +
+      '<button class="btn btn-ghost btn-block btn-sm" style="margin-top:6px" data-action="upgrade">مدیریت پلن</button>' +
+      '</div></div>';
+  }
+
+  var viewRenderers = {
+    overview: dashboardHTML,
+    markets: marketsViewHTML,
+    portfolio: portfolioHTML,
+    alerts: alertsHTML,
+    settings: settingsHTML
+  };
+
+  function setView(name){
+    var fn = viewRenderers[name] || viewRenderers.overview;
+    dashBody.innerHTML = fn();
+    dashBody.classList.remove('view-enter');
+    void dashBody.offsetWidth;
+    dashBody.classList.add('view-enter');
+    $$('.sb-item').forEach(function(el){
+      el.classList.toggle('active', el.getAttribute('data-view') === name);
+    });
+    if (name === 'overview'){
+      renderChart();
+      renderMovers();
+    }
+  }
+
+  /* ---------- SCROLL ---------- */
+  function scrollToId(id){
+    if (id === 'top'){ window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); return; }
+    var target = document.getElementById(id);
+    if (!target) return;
+    var y = target.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'});
+  }
+
+  /* ---------- CLICK DELEGATION ---------- */
+  document.addEventListener('click', function(e){
+    var el;
+
+    el = e.target.closest('[data-scroll]');
+    if (el){ e.preventDefault(); scrollToId(el.getAttribute('data-scroll')); return; }
+
+    el = e.target.closest('[data-action]');
+    if (el){
+      e.preventDefault();
+      var action = el.getAttribute('data-action');
+      if (action === 'launch'){ openTrial(); return; }
+      if (action === 'upgrade'){ openUpgrade(); return; }
+    }
+
+    el = e.target.closest('[data-toast]');
+    if (el){ e.preventDefault(); toast(el.getAttribute('data-toast')); return; }
+
+    el = e.target.closest('[data-view]');
+    if (el){ e.preventDefault(); setView(el.getAttribute('data-view')); return; }
+
+    if (e.target.closest('#sbSearch') || e.target.closest('.sb-search')){ openSearch(); return; }
+    if (e.target.closest('#gearBtn')){ setView('settings'); return; }
+
+    if (e.target.closest('[data-chart-cycle]')){
+      var idx = periods.indexOf(currentPeriod);
+      currentPeriod = periods[(idx+1) % periods.length];
+      renderChart();
+      toast('بازه نمودار: ' + currentPeriod);
+      return;
+    }
+
+    el = e.target.closest('[data-mv]');
+    if (el){
+      var dir = parseInt(el.getAttribute('data-mv'), 10);
+      moverPage = (moverPage + dir + moverPages.length) % moverPages.length;
+      renderMovers();
+      return;
+    }
+
+    el = e.target.closest('.toggle');
+    if (el){ el.classList.toggle('on'); toast('تنظیم به‌روز شد'); return; }
+
+    el = e.target.closest('.menu-item');
+    if (el){
+      $$('.menu-item').forEach(function(m){ m.classList.remove('active'); });
+      el.classList.add('active');
+    }
+  });
+
+  /* ---------- NEWSLETTER ---------- */
+  var news = $('#newsletter');
+  if (news){
+    news.addEventListener('submit', function(e){
+      e.preventDefault();
+      var v = $('#newsEmail').value.trim();
+      if (!v || v.indexOf('@') < 1){ toast('ایمیل معتبر وارد کنید'); return; }
+      $('#newsEmail').value = '';
+      toast('عضویت ثبت شد — به‌زودی خبر می‌دهیم.');
+    });
+  }
+
+  /* ---------- SCROLL EVENTS ---------- */
+  var sectionIds = ['what-is','crypto','why','risks','faq'];
+  function onScroll(){
+    var heroBottom = heroScreen.getBoundingClientRect().bottom;
+    stickyNav.classList.toggle('show', heroBottom < 40);
+
+    var activeId = '';
+    var offset = 140;
+    sectionIds.forEach(function(id){
+      var node = document.getElementById(id);
+      if (!node) return;
+      if (node.getBoundingClientRect().top - offset <= 0) activeId = id;
+    });
+    $$('.sn-link').forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('data-scroll') === activeId);
+    });
+  }
+
+  /* ---------- REVEAL ---------- */
+  var revealEls = $$('.reveal');
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- RESIZE ---------- */
+  var resizeTimer;
+  function onResize(){ drawStars(); layout(); }
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(onResize, 120);
+  });
+  if (mobileMQ.addEventListener){ mobileMQ.addEventListener('change', onResize); }
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  /* ---------- BOOT ---------- */
+  function boot(){
+    drawStars();
+    drawRim();
+    layout();
+    setView('overview');
+    renderMarketTable();
+    document.body.classList.add('ready');
+    onScroll();
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive'){
+    requestAnimationFrame(boot);
+  } else {
+    window.addEventListener('DOMContentLoaded', function(){
+      requestAnimationFrame(boot);
+    });
+  }
+})();
+</script>
+</body>
+</html>
